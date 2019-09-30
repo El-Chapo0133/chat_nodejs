@@ -1,0 +1,25 @@
+{
+  "name": "chat_nodejs",
+  "version": "1.0.0",
+  "description": "simple chat in nodejs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/El-Chapo0133/chat_nodejs.git"
+  },
+  "keywords": [
+    "nodejs",
+    "chat",
+    "express",
+    "socket.io"
+  ],
+  "author": "Loris Levêque",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/El-Chapo0133/chat_nodejs/issues"
+  },
+  "homepage": "https://github.com/El-Chapo0133/chat_nodejs#readme"
+}
