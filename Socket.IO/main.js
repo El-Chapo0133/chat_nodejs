@@ -1,7 +1,7 @@
-let socket = require('socket.io')
+let io = require('socket.io')
 
-socket.on("connect", (data) => {
+io.on("connect", (data) => {
 
 })
 
-module.exports = socket
+module.exports = io

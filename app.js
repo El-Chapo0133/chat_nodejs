@@ -1,5 +1,6 @@
 let status = require('./modules/status.js')
 let port = require('./modules/port.js')
+let ip = require('./modules/ip.js')
 
 let fs = require('fs')
 let app = require('http').createServer(handler)
@@ -24,7 +25,7 @@ function handler(request, response) {
     })
 }
 
-app.listen(port.Port, (err) => {
+app.listen(port.Port, ip.IP, (err) => {
     if (err) {
         console.log("arg, errors!")
         console.log(err)

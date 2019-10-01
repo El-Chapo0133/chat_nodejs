@@ -7,25 +7,34 @@
         <title>nodejs chat</title>
     </head>
     <body>
-        <h2>It Works !</h2>
+        <h2>Chat in nodejs using socket.io</h2>
         <input id="textBox" type="text" name="textBox">
         <button id="buttonSend">Send</button>
         <div id="pocket"></div>
         <script src="/socket.io/socket.io.js"></script>
         <script>
+            // ### Variables
             var socket = io('http://localhost:8080')
             var textBox = document.getElementById('textBox')
             var button = document.getElementById('buttonSend')
             var pocket = document.getElementById('pocket')
+            // send message to broadcast
             button.onclick = () => {
-                socket.emit('send', { data: textBox.value })
-                addMessage(textBox.value)
-                disposeTextBox()
+                if (textBox.value != '') {
+                    socket.emit('send', { data: textBox.value })
+                    addMessage(textBox.value)
+                    disposeTextBox()
+                } else {
+                    alert("remplissez la textBox pour envoyer un message :)")
+                    socket.emit('send', { data: "quelqu'un à essayé d'envoyer un message vide x)" })
+                }
             }
+            // receive message from broadcast
             socket.on('getMessage', (data) => {
                 console.log(data)
                 addMessage(data)
             })
+            // ### Functions
             function addMessage(data) {
                 pocket.innerHTML += "<p>" + data + "</p>"
             }
