@@ -7,6 +7,32 @@
         <title>nodejs chat</title>
     </head>
     <body>
-        
+        <h2>It Works !</h2>
+        <input id="textBox" type="text" name="textBox">
+        <button id="buttonSend">Send</button>
+        <div id="pocket"></div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io('http://localhost:8080')
+            var textBox = document.getElementById('textBox')
+            var button = document.getElementById('buttonSend')
+            var pocket = document.getElementById('pocket')
+            button.onclick = () => {
+                socket.emit('send', { data: textBox.value })
+                addMessage(textBox.value)
+                disposeTextBox()
+            }
+            socket.on('getMessage', (data) => {
+                console.log(data)
+                addMessage(data)
+            })
+
+            function addMessage(data) {
+                pocket.innerHTML += "<p>" + data + "</p>"
+            }
+            function disposeTextBox() {
+                textBox.value = ""
+            }
+        </script>
     </body>
 </html>
