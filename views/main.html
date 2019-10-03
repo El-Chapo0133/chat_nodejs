@@ -5,11 +5,56 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>nodejs chat</title>
+
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                border: none;
+            }
+
+            #title {
+                top: 2%;
+                left: 30%;
+                position: fixed;
+            }
+
+            #main-box {
+                right: 2%;
+                position: fixed;
+                bottom: 4%;
+                width: 90%
+            }
+            #main-box input {
+                width: 90%;
+            }
+            #pocket {
+                margin-top: 5em;
+                margin-left: 10%;
+                margin-right: 10%;
+            }
+            #ourMessage, #otherMessage {
+                height: 1.2em;
+                margin: 1%;
+                padding-left: .3em;
+                padding-right: .3em;
+                border: 1px solid black;
+                border-radius: .5em;
+            }
+            #ourMessage {
+                text-align: left;
+            }
+            #otherMessage {
+                text-align: right;   
+            }
+        </style>
     </head>
     <body>
-        <h2>Chat in nodejs using socket.io</h2>
-        <input id="textBox" type="text" name="textBox">
-        <button id="buttonSend">Send</button>
+        <h2 id="title">Chat in nodejs using socket.io</h2>
+        <div id="main-box">
+            <input id="textBox" type="text" name="textBox">
+            <button id="buttonSend">Send</button>
+        </div>
         <div id="pocket"></div>
         <script src="/socket.io/socket.io.js"></script>
         <script>
@@ -20,23 +65,41 @@
             var pocket = document.getElementById('pocket')
             // send message to broadcast
             button.onclick = () => {
-                if (textBox.value != '') {
-                    socket.emit('send', { data: textBox.value })
-                    addMessage(textBox.value)
+                send(textBox.value)
+            }
+            // receive message from broadcast
+            socket.on('getMessage', (data) => {
+                console.log(data)
+                addOtherMessage(data)
+            })
+            textBox.addEventListener('keypress', captureKey)
+            // ### Functions
+            function captureKey(e) {
+                if (isRightKey(e.code)) {
+                    send(textBox.value)
+                }
+            }
+            function isRightKey(key) {
+                if (key === "Enter")
+                    return true
+                else
+                    return false
+            }
+            function send(data) {
+                if (data != '') {
+                    socket.emit('send', { "data": data })
+                    addOurMessage(data)
                     disposeTextBox()
                 } else {
                     alert("remplissez la textBox pour envoyer un message :)")
                     socket.emit('send', { data: "quelqu'un à essayé d'envoyer un message vide x)" })
                 }
             }
-            // receive message from broadcast
-            socket.on('getMessage', (data) => {
-                console.log(data)
-                addMessage(data)
-            })
-            // ### Functions
-            function addMessage(data) {
-                pocket.innerHTML += "<p>" + data + "</p>"
+            function addOurMessage(data) {
+                pocket.innerHTML += '<p id="ourMessage">' + data + "</p>"
+            }
+            function addOtherMessage(data) {
+                pocket.innerHTML += '<p id="otherMessage">' + data + "</p>"
             }
             function disposeTextBox() {
                 textBox.value = ""
