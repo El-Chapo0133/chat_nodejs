@@ -37,6 +37,18 @@
                 width: 100%;
                 height: 2.5em;
             }
+            .ourAuthor, .otherAuthor {
+                font-size: .7em;
+                margin: 0;
+            }
+            .ourAuthor {
+                text-align: left;
+                float:left;
+            }
+            .otherAuthor {
+                text-align: right;
+                float:right;
+            }
             .ourMessage, .otherMessage {
                 height: 1em;
                 margin: .1em;
@@ -104,10 +116,10 @@
                 }
             }
             function addOurMessage(data) {
-                pocket.innerHTML += '<div class="divMessage"><p class="ourMessage">' + data + "</p></div>"
+                pocket.innerHTML += '<div class="divMessage"><p class="ourAuthor">Vous</p><p class="ourMessage">' + data + "</p></div>"
             }
             function addOtherMessage(data) {
-                pocket.innerHTML += '<div class="divMessage"><p class="otherMessage">' + data + "</p></div>"
+                pocket.innerHTML += '<div class="divMessage"><p class="otherAuthor">Autre</p><p class="otherMessage">' + data + "</p></div>"
             }
             function disposeTextBox() {
                 textBox.value = ""

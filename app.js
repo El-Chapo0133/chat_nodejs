@@ -5,10 +5,12 @@ let getIp = require('./modules/getIp.js')
 
 let fs = require('fs')
 let app = require('http').createServer(handler)
-global.app = app
+global.app = app // for socket.io => ./Socket.IO/main.js
 let io = require('./Socket.IO/main.js')
 
 function handler(request, response) {
+    // maybe use request.headers to get user ip
+    console.log(request.headers)
     fs.readFile(__dirname + "/views/main.html", (err, data) => {
         if (err) {
             response.writeHead(status.NotFound())
