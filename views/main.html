@@ -33,19 +33,27 @@
                 margin-left: 10%;
                 margin-right: 10%;
             }
-            #ourMessage, #otherMessage {
-                height: 1.2em;
-                margin: 1%;
-                padding-left: .3em;
-                padding-right: .3em;
-                border: 1px solid black;
+            .divMessage {
+                width: 100%;
+                height: 2.5em;
+            }
+            .ourMessage, .otherMessage {
+                height: 1em;
+                margin: .1em;
+                padding-left: .2em;
+                padding-right: .2em;
+                padding-bottom: .2em;
+                padding-top: .2em;
+                border: .1em solid black;
                 border-radius: .5em;
             }
-            #ourMessage {
+            .ourMessage {
                 text-align: left;
+                float: left;
             }
-            #otherMessage {
-                text-align: right;   
+            .otherMessage {
+                text-align: right;
+                float: right;
             }
         </style>
     </head>
@@ -96,10 +104,10 @@
                 }
             }
             function addOurMessage(data) {
-                pocket.innerHTML += '<p id="ourMessage">' + data + "</p>"
+                pocket.innerHTML += '<div class="divMessage"><p class="ourMessage">' + data + "</p></div>"
             }
             function addOtherMessage(data) {
-                pocket.innerHTML += '<p id="otherMessage">' + data + "</p>"
+                pocket.innerHTML += '<div class="divMessage"><p class="otherMessage">' + data + "</p></div>"
             }
             function disposeTextBox() {
                 textBox.value = ""
