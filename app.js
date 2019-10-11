@@ -1,16 +1,12 @@
 let status = require('./modules/status.js')
 let port = require('./modules/port.js')
 let ip = require('./modules/ip.js')
+let getIp = require('./modules/getIp.js')
 
 let fs = require('fs')
 let app = require('http').createServer(handler)
-let io = require('socket.io')(app)
-
-io.on('connection', (socket) => {
-    socket.on('send', (data) => {
-        socket.broadcast.emit("getMessage", data.data)
-    })
-})
+global.app = app
+let io = require('./Socket.IO/main.js')
 
 function handler(request, response) {
     fs.readFile(__dirname + "/views/main.html", (err, data) => {
@@ -26,6 +22,7 @@ function handler(request, response) {
 }
 
 app.listen(port.Port, ip.IP, (err) => {
+    console.log(getIp.Ip)
     if (err) {
         console.log("arg, errors!")
         console.log(err)
