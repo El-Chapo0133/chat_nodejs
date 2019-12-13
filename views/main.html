@@ -89,7 +89,6 @@
             }
             // receive message from broadcast
             socket.on('getMessage', (data) => {
-                console.log(data)
                 addOtherMessage(data)
             })
             textBox.addEventListener('keypress', captureKey)
@@ -107,19 +106,19 @@
             }
             function send(data) {
                 if (data != '') {
-                    socket.emit('send', { "data": data })
+                    socket.emit('send', { "data": data, "author":  })
                     addOurMessage(data)
                     disposeTextBox()
                 } else {
                     alert("remplissez la textBox pour envoyer un message :)")
-                    socket.emit('send', { data: "quelqu'un à essayé d'envoyer un message vide x)" })
+                    socket.emit('send', { content: "quelqu'un à essayé d'envoyer un message vide x)", "author": "anonymous" })
                 }
             }
-            function addOurMessage(data) {
-                pocket.innerHTML += '<div class="divMessage"><p class="ourAuthor">Vous</p><p class="ourMessage">' + data + "</p></div>"
+            function addOurMessage(content) {
+                pocket.innerHTML += '<div class="divMessage"><p class="ourAuthor">Vous</p><p class="ourMessage">' + content + "</p></div>"
             }
             function addOtherMessage(data) {
-                pocket.innerHTML += '<div class="divMessage"><p class="otherAuthor">Autre</p><p class="otherMessage">' + data + "</p></div>"
+                pocket.innerHTML += `<div class="divMessage"><p class="otherAuthor">${data.author}</p><p class="otherMessage">${data.content}</p></div>`
             }
             function disposeTextBox() {
                 textBox.value = ""

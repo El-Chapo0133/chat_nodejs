@@ -1,0 +1,10 @@
+{
+	"users": [
+		{
+			"_id": 0,
+			"name": "Admin",
+			"surname": "Of the world",
+			"ip": "255.255.255.255"
+		}
+	]
+}
