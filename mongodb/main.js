@@ -7,13 +7,6 @@ class MyDb {
 		this.myDb;
 		this.mongoClient = mongo.MongoClient;
 	}
-	connect() {
-		this.MongoClient.connect(url, (err, db) => {
-			if (err)
-				throw(err);
-			this.myDb = db.db("main");
-		});
-	}
 	async createCollections(name) {
 		this.connect();
 		this.myDb.createCollection(name, (err, res) => {
@@ -21,6 +14,14 @@ class MyDb {
 				throw(err);
 			return;
 		})
+	}
+	// private
+	connect() {
+		this.MongoClient.connect(url, (err, db) => {
+			if (err)
+				throw(err);
+			this.myDb = db.db("main");
+		});
 	}
 	async insertOne(user) {
 		this.connect();
